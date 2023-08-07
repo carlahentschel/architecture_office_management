@@ -17,10 +17,12 @@ public record CreateBudget(
         @NotBlank
         @Length(min = 3)
         String projectStages,
+        @NotNull
+        int squareMeters,
         @NotBlank
         @Length(min = 3, max = 100)
         String workAddress,
-        @NotBlank
+        @NotNull
         int estimedHours,
         @NotNull
         @FutureOrPresent
