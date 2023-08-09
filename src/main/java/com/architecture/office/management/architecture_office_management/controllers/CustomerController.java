@@ -22,7 +22,7 @@ public class CustomerController {
     public ResponseEntity createCustomer(@RequestBody @Valid CreateCustomer data) {
 
         if(customerRepository.existsByCpf(data.cpf())){
-            return ResponseEntity.badRequest().body(new ErrorData("Cliente já cadastrado."));
+            return ResponseEntity.badRequest().body(new ErrorData("Este CPF já foi cadastrado."));
         }
         var newCustomer = new Customer(data);
         customerRepository.save(newCustomer);
