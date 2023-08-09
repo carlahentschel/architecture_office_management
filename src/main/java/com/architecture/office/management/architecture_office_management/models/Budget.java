@@ -31,7 +31,8 @@ public class Budget {
     private int estimedHours;
     private LocalDate date;
     private double value;
-    //private int version;
+
+
 
     public Budget(CreateBudget newBudget) {
         customerName = newBudget.customerName();
@@ -42,7 +43,6 @@ public class Budget {
         estimedHours = newBudget.estimedHours();
         date = newBudget.date();
         value = newBudget.value();
-        //version = 1;
     }
 
     public void updateBudget(UpdateBudget data) {
@@ -78,8 +78,6 @@ public class Budget {
         if(data.value().isPresent()) {
             value = data.value().get();
         }
-
-        //version += 1;
 
     }
 
