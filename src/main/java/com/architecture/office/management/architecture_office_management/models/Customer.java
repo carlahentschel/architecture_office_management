@@ -2,12 +2,12 @@ package com.architecture.office.management.architecture_office_management.models
 
 import com.architecture.office.management.architecture_office_management.dtos.CreateCustomer;
 import com.architecture.office.management.architecture_office_management.dtos.UpdateCustomer;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,6 +21,9 @@ public class Customer {
     private String address;
     private String phone;
     private String email;
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_cpf")
+    private List<Contract> contracts;
 
     public Customer(CreateCustomer newCustomer) {
         cpf = newCustomer.cpf();
