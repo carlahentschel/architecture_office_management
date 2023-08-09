@@ -1,6 +1,5 @@
 package com.architecture.office.management.architecture_office_management.dtos;
 
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
