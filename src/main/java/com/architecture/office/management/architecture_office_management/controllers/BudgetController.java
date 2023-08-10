@@ -1,10 +1,7 @@
 package com.architecture.office.management.architecture_office_management.controllers;
 
-import com.architecture.office.management.architecture_office_management.dtos.ErrorData;
-import com.architecture.office.management.architecture_office_management.dtos.UpdateBudget;
+import com.architecture.office.management.architecture_office_management.dtos.*;
 import com.architecture.office.management.architecture_office_management.repositories.BudgetRepository;
-import com.architecture.office.management.architecture_office_management.dtos.BudgetList;
-import com.architecture.office.management.architecture_office_management.dtos.CreateBudget;
 import com.architecture.office.management.architecture_office_management.models.Budget;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -37,6 +34,15 @@ public class BudgetController {
         var data = budgetRepository.findAll().stream().map(BudgetList::new).toList();
         return ResponseEntity.ok().body(data);
     }
+
+    @GetMapping("/calculateBudgets")
+    public ResponseEntity<Integer> calculateBudgets() {
+
+        var data = budgetRepository.calculateBudgets();
+        return ResponseEntity.ok().body(data);
+    }
+
+
 
     @PutMapping("/{id}")
     @Transactional
