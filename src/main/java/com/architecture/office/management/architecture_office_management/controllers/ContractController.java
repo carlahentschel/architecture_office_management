@@ -11,7 +11,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,6 +40,13 @@ public class ContractController {
         return ResponseEntity.ok().body(data);
     }
 
+    @GetMapping("/count_contracts")
+    public ResponseEntity<Integer> countContracts(@RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate) {
+
+        var data = contractRepository.countContractsInDateRange(startDate, endDate);
+        return ResponseEntity.ok().body(data);
+    }
+
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity updateContract(@PathVariable UUID id, @RequestBody UpdateContract contractUpdated) {
@@ -54,6 +61,5 @@ public class ContractController {
         return ResponseEntity.noContent().build();
 
     }
-
 
 }
