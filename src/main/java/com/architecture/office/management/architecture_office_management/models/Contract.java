@@ -23,6 +23,8 @@ public class Contract {
     private Budget budget;
     @Column(name = "customer_cpf")
     private String customerCpf;
+    @Column(name = "signature_date")
+    private LocalDate signatureDate;
 
     public Contract(CreateContract newContract) {
         formOfPayment = newContract.formOfPayment();
@@ -30,6 +32,7 @@ public class Contract {
         finalDate = newContract.finalDate();
         budget = newContract.budget();
         customerCpf = newContract.customerCpf();
+        signatureDate = newContract.signatureDate();
     }
 
     public void updateContract(UpdateContract data) {
@@ -46,8 +49,10 @@ public class Contract {
             finalDate = data.finalDate();
         }
 
+        if(data.signatureDate() != null) {
+            signatureDate = data.signatureDate();
+        }
+
     }
-
-
 
 }
