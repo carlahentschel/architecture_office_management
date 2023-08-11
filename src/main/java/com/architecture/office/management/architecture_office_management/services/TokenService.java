@@ -22,7 +22,7 @@ public class TokenService {
                     .withExpiresAt(setExpirationTime())
                     .sign(algorithm);
         }catch (JWTVerificationException exception){
-            throw new RuntimeException("Error ao gerar token");
+            throw new RuntimeException("Erro ao gerar token");
         }
     }
 
@@ -34,6 +34,6 @@ public class TokenService {
     }
 
     private Instant setExpirationTime() {
-        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
+        return LocalDateTime.now().plusHours(6).toInstant(ZoneOffset.of("-03:00"));
     }
 }
