@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,6 +29,7 @@ public class BudgetController {
 
         return ResponseEntity.ok().body(newBudget);
     }
+
     @GetMapping
     public ResponseEntity<List<BudgetList>> listBudgets() {
 
@@ -35,14 +37,12 @@ public class BudgetController {
         return ResponseEntity.ok().body(data);
     }
 
-    @GetMapping("/calculateBudgets")
-    public ResponseEntity<Integer> calculatesBudgets() {
+    @GetMapping("/count_budgets")
+    public ResponseEntity<Integer> countBudgets(@RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate) {
 
-        var data = budgetRepository.calculatesBudgets();
+        var data = budgetRepository.countBudgetsInDateRange(startDate, endDate);
         return ResponseEntity.ok().body(data);
     }
-
-
 
     @PutMapping("/{id}")
     @Transactional
@@ -55,12 +55,7 @@ public class BudgetController {
         var budget = budgetRepository.getReferenceById(id);
         budget.updateBudget(budgetUpdated);
 
-
         return ResponseEntity.noContent().build();
-
     }
-
-
-
 
 }
