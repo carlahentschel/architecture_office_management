@@ -2,9 +2,6 @@ package com.architecture.office.management.architecture_office_management.dtos;
 
 import com.architecture.office.management.architecture_office_management.models.Budget;
 import com.architecture.office.management.architecture_office_management.models.Contract;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -14,7 +11,8 @@ public record ContractList(
         LocalDate initialDate,
         LocalDate finalDate,
         Budget budget,
-        String customerCpf
+        String customerCpf,
+        LocalDate signatureDate
 ) {
     public ContractList(Contract contract) {
         this(
@@ -23,9 +21,9 @@ public record ContractList(
                 contract.getInitialDate(),
                 contract.getFinalDate(),
                 contract.getBudget(),
-                contract.getCustomerCpf()
+                contract.getCustomerCpf(),
+                contract.getSignatureDate()
         );
-
     }
 
 }
