@@ -1,7 +1,5 @@
 package com.architecture.office.management.architecture_office_management.dtos;
 
-import jakarta.persistence.Column;
-
 import java.time.LocalDate;
 import java.util.Optional;
 

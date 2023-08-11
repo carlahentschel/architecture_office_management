@@ -32,8 +32,6 @@ public class Budget {
     private LocalDate date;
     private double value;
 
-
-
     public Budget(CreateBudget newBudget) {
         customerName = newBudget.customerName();
         project = newBudget.project();
@@ -80,6 +78,5 @@ public class Budget {
         }
 
     }
-
 
 }
