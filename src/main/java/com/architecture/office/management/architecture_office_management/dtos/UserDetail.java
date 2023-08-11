@@ -5,10 +5,9 @@ import java.util.UUID;
 
 public record UserDetail(
         UUID id,
-        String username,
-        String password
+        String username
 ) {
     public UserDetail(User user) {
-        this(user.getId(), user.getUsername(), user.getPassword());
+        this(user.getId(), user.getUsername());
     }
 }
