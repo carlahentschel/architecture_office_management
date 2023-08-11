@@ -1,6 +1,7 @@
 package com.architecture.office.management.architecture_office_management.controllers;
 
 import com.architecture.office.management.architecture_office_management.dtos.CreatePayment;
+import com.architecture.office.management.architecture_office_management.dtos.PaymentList;
 import com.architecture.office.management.architecture_office_management.models.Payment;
 import com.architecture.office.management.architecture_office_management.repositories.PaymentRepository;
 import jakarta.transaction.Transactional;
@@ -8,6 +9,8 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.time.LocalDate;
+import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -26,4 +29,19 @@ public class PaymentController {
 
         return ResponseEntity.ok().body(newPayment);
     }
+
+    @GetMapping
+    public ResponseEntity<List<PaymentList>> listPayments() {
+
+        var data = paymentRepository.findAll().stream().map(PaymentList::new).toList();
+        return ResponseEntity.ok().body(data);
+    }
+
+    @GetMapping("/sum_payments")
+    public ResponseEntity<Double> sumPayments(@RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate) {
+
+        var data = paymentRepository.sumPaymentsInDateRange(startDate, endDate);
+        return ResponseEntity.ok().body(data);
+    }
+
 }
