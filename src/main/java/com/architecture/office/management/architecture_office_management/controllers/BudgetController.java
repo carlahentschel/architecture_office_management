@@ -36,9 +36,9 @@ public class BudgetController {
     }
 
     @GetMapping("/calculateBudgets")
-    public ResponseEntity<Integer> calculateBudgets() {
+    public ResponseEntity<Integer> calculatesBudgets() {
 
-        var data = budgetRepository.calculateBudgets();
+        var data = budgetRepository.calculatesBudgets();
         return ResponseEntity.ok().body(data);
     }
 
