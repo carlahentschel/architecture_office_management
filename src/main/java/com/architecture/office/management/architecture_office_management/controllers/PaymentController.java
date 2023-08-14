@@ -9,6 +9,8 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -41,6 +43,13 @@ public class PaymentController {
     public ResponseEntity<Double> sumPayments(@RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate) {
 
         var data = paymentRepository.sumPaymentsInDateRange(startDate, endDate);
+        return ResponseEntity.ok().body(data);
+    }
+
+    @GetMapping("/payments_per_period")
+    public ResponseEntity<List<Payment>> findPaymentsInDateRange(@RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate) {
+
+        List<Payment> data = paymentRepository.paymentsInDateRange(startDate, endDate);
         return ResponseEntity.ok().body(data);
     }
 
