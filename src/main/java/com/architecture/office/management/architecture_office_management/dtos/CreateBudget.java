@@ -1,8 +1,6 @@
 package com.architecture.office.management.architecture_office_management.dtos;
 
-import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import org.hibernate.validator.constraints.Length;
 import java.time.LocalDate;
 
@@ -27,6 +25,7 @@ public record CreateBudget(
         @FutureOrPresent
         LocalDate date,
         @NotNull
+        @Min(value = 1)
         double value
 ) {
 }
