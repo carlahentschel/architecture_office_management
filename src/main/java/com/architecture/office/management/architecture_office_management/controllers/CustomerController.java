@@ -40,7 +40,10 @@ public class CustomerController {
 
     @PutMapping("/{cpf}")
     @Transactional
-    public ResponseEntity updateCustomer(@PathVariable String cpf, @RequestBody UpdateCustomer customerUpdated) {
+    public ResponseEntity updateCustomer(
+            @PathVariable String cpf,
+            @RequestBody UpdateCustomer customerUpdated
+    ) {
 
         if(!customerRepository.existsByCpf(cpf)) {
             return ResponseEntity.badRequest().body(new ErrorData("Cliente não localizado."));
