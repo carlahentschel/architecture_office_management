@@ -38,7 +38,10 @@ public class BudgetController {
     }
 
     @GetMapping("/count_budgets")
-    public ResponseEntity<Integer> countBudgets(@RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate) {
+    public ResponseEntity<Integer> countBudgets(
+            @RequestParam("startDate") LocalDate startDate,
+            @RequestParam("endDate") LocalDate endDate
+    ) {
 
         var data = budgetRepository.countBudgetsInDateRange(startDate, endDate);
         return ResponseEntity.ok().body(data);
