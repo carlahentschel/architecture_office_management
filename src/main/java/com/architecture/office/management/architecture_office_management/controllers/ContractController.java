@@ -41,7 +41,10 @@ public class ContractController {
     }
 
     @GetMapping("/count_contracts")
-    public ResponseEntity<Integer> countContracts(@RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate) {
+    public ResponseEntity<Integer> countContracts(
+            @RequestParam("startDate") LocalDate startDate,
+            @RequestParam("endDate") LocalDate endDate
+    ) {
 
         var data = contractRepository.countContractsInDateRange(startDate, endDate);
         return ResponseEntity.ok().body(data);
@@ -49,7 +52,10 @@ public class ContractController {
 
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity updateContract(@PathVariable UUID id, @RequestBody UpdateContract contractUpdated) {
+    public ResponseEntity updateContract(
+            @PathVariable UUID id,
+            @RequestBody UpdateContract contractUpdated
+    ) {
 
         if(!contractRepository.existsById(id)) {
             return ResponseEntity.badRequest().body(new ErrorData("Contrato não localizado."));
