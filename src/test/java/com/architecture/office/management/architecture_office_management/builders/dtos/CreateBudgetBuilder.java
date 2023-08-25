@@ -10,7 +10,7 @@ public class CreateBudgetBuilder {
     private int squareMeters =  111;
     private String workAddress = "Any Address";
     private int estimedHours = 11;
-    private LocalDate date = LocalDate.of(2023,8,23);
+    private LocalDate date = LocalDate.now().plusDays(1);
     private double value = 1111.11;
 
     public static CreateBudgetBuilder init() {
