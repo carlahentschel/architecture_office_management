@@ -1,6 +1,7 @@
 package com.architecture.office.management.architecture_office_management.controllers;
 
 import com.architecture.office.management.architecture_office_management.builders.dtos.CreateBudgetBuilder;
+import com.architecture.office.management.architecture_office_management.builders.dtos.UpdateBudgetBuilder;
 import com.architecture.office.management.architecture_office_management.builders.models.BudgetBuilder;
 import com.architecture.office.management.architecture_office_management.dtos.BudgetList;
 import com.architecture.office.management.architecture_office_management.models.Budget;
@@ -29,10 +30,8 @@ class BudgetControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
     @Autowired
     private ObjectMapper mapper;
-
     @Autowired
     private BudgetRepository budgetRepository;
 
@@ -45,7 +44,6 @@ class BudgetControllerTest {
     @DisplayName("Deve retornar status 200 contendo um orçamento criado quando as infos são válidas")
     public void createBudget() throws Exception {
         //given
-
         var dataJson = mapper.writeValueAsString(CreateBudgetBuilder.init().builder());
 
         //when
@@ -120,12 +118,13 @@ class BudgetControllerTest {
         //given
         var b1 = BudgetBuilder.init().builder();
         budgetRepository.save(b1);
+        var today = LocalDate.now();
 
         //then
         var response = mockMvc.perform(
                 MockMvcRequestBuilders.get("/budgets/count_budgets")
-                        .param("startDate", "2023-08-01")
-                        .param("endDate", "2023-08-24")
+                        .param("startDate", today.toString() )
+                        .param("endDate", today.plusDays(2).toString())
         ).andReturn().getResponse();
 
         //when
@@ -150,6 +149,25 @@ class BudgetControllerTest {
         //when
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(response.getContentAsString()).isEqualTo("0");
+    }
+
+    @Test
+    @DisplayName("Deve retornar 404 quando acessar um id de orçamento inexistente a ser atualizado")
+    public void updateBudget() throws Exception {
+        //given
+        var id = UUID.randomUUID();
+        var dataJson = mapper.writeValueAsString(UpdateBudgetBuilder.init().builder());
+
+        //when
+        var response = mockMvc.perform(
+                MockMvcRequestBuilders.put("/budgets/" + id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(dataJson)
+        ).andReturn().getResponse();
+
+        //then
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
+
     }
 
 }
