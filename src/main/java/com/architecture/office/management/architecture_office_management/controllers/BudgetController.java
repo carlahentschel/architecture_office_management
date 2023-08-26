@@ -52,7 +52,7 @@ public class BudgetController {
     public ResponseEntity updateBudget(@PathVariable UUID id, @RequestBody UpdateBudget budgetUpdated) {
 
         if(!budgetRepository.existsById(id)) {
-            return ResponseEntity.badRequest().body(new ErrorData("Orçamento não localizado."));
+            return ResponseEntity.notFound().build();
         }
 
         var budget = budgetRepository.getReferenceById(id);
