@@ -24,10 +24,10 @@ class BudgetTest {
         assertThat(budget.getCustomerName()).isEqualTo(dataToUpdate.customerName());
         assertThat(budget.getProject()).isEqualTo(dataToUpdate.project());
         assertThat(budget.getProjectStages()).isEqualTo(dataToUpdate.projectStages());
-        assertThat(budget.getSquareMeters()).isEqualTo(dataToUpdate.squareMeters());
+        assertThat(budget.getSquareMeters()).isEqualTo(dataToUpdate.squareMeters().get());
         assertThat(budget.getWorkAddress()).isEqualTo(dataToUpdate.workAddress());
-        assertThat(budget.getEstimedHours()).isEqualTo(dataToUpdate.estimedHours());
+        assertThat(budget.getEstimedHours()).isEqualTo(dataToUpdate.estimedHours().get());
         assertThat(budget.getDate()).isEqualTo(dataToUpdate.date());
-        assertThat(budget.getValue()).isEqualTo(dataToUpdate.value());
+        assertThat(budget.getValue()).isEqualTo(dataToUpdate.value().get());
     }
 }
