@@ -32,6 +32,14 @@ public class Customer {
         email = newCustomer.email();
     }
 
+    public Customer(String cpf, String name, String address, String phone, String email) {
+        this.cpf = cpf;
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+    }
+
     public void updateCustomer(UpdateCustomer data) {
         if(data.name() != null) {
             name = data.name();
