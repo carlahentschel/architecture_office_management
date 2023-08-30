@@ -58,7 +58,7 @@ public class ContractController {
     ) {
 
         if(!contractRepository.existsById(id)) {
-            return ResponseEntity.badRequest().body(new ErrorData("Contrato não localizado."));
+            return ResponseEntity.notFound().build();
         }
 
         var contract = contractRepository.getReferenceById(id);
