@@ -22,6 +22,26 @@ public class CustomerBuilder {
         return this;
     }
 
+    public CustomerBuilder withName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public CustomerBuilder withAddress(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public CustomerBuilder withPhone(String phone) {
+        this.phone = phone;
+        return this;
+    }
+
+    public CustomerBuilder withEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
     public Customer builder() {
         return new Customer(
                 cpf,
