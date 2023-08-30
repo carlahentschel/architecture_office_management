@@ -6,6 +6,7 @@ import com.architecture.office.management.architecture_office_management.builder
 import com.architecture.office.management.architecture_office_management.dtos.BudgetList;
 import com.architecture.office.management.architecture_office_management.models.Budget;
 import com.architecture.office.management.architecture_office_management.repositories.BudgetRepository;
+import com.architecture.office.management.architecture_office_management.repositories.ContractRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -34,9 +35,12 @@ class BudgetControllerTest {
     private ObjectMapper mapper;
     @Autowired
     private BudgetRepository budgetRepository;
+    @Autowired
+    private ContractRepository contractRepository;
 
     @AfterEach
     public void afterEach() {
+        contractRepository.deleteAll();
         budgetRepository.deleteAll();
     }
 
