@@ -2,12 +2,14 @@ package com.architecture.office.management.architecture_office_management.models
 
 import com.architecture.office.management.architecture_office_management.dtos.CreatePayment;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.util.UUID;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Entity
 @Table(name = "payments")
