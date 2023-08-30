@@ -1,6 +1,7 @@
 package com.architecture.office.management.architecture_office_management.controllers;
 
 import com.architecture.office.management.architecture_office_management.builders.dtos.CreateContractBuilder;
+import com.architecture.office.management.architecture_office_management.builders.dtos.UpdateContractBuilder;
 import com.architecture.office.management.architecture_office_management.builders.models.BudgetBuilder;
 import com.architecture.office.management.architecture_office_management.builders.models.ContractBuilder;
 import com.architecture.office.management.architecture_office_management.builders.models.CustomerBuilder;
@@ -37,16 +38,16 @@ class ContractControllerTest {
     private ObjectMapper mapper;
     @Autowired
     private BudgetRepository budgetRepository;
-
     @Autowired
     private ContractRepository contractRepository;
-
     @Autowired
     private CustomerRepository customerRepository;
 
     @AfterEach
     public void afterEach() {
         contractRepository.deleteAll();
+        budgetRepository.deleteAll();
+        customerRepository.deleteAll();
     }
 
     @Test
@@ -59,7 +60,8 @@ class ContractControllerTest {
         var customer = CustomerBuilder.init().builder();
         customerRepository.save(customer);
 
-        var dataJson = mapper.writeValueAsString(CreateContractBuilder.init().withBudget(budgetSaved).builder());
+        var dataJson = mapper.writeValueAsString(CreateContractBuilder.init()
+                .withBudget(budgetSaved).builder());
 
         //when
         var response = mockMvc.perform(
@@ -99,6 +101,9 @@ class ContractControllerTest {
         var budget = BudgetBuilder.init().builder();
         var budgetSaved = budgetRepository.save(budget);
 
+        var customer = CustomerBuilder.init().builder();
+        customerRepository.save(customer);
+
         var c1 = ContractBuilder.init().withBudget(budgetSaved).builder();
         contractRepository.save(c1);
 
@@ -119,11 +124,15 @@ class ContractControllerTest {
     }
 
     @Test
-    @DisplayName("Deve retornar status 200 com 1 orçamento no intervalo de datas passado")
+    @DisplayName("Deve retornar status 200 com 1 contrato no intervalo de datas passado")
     void countContractsCase1() throws Exception {
         //given
         var b1 = BudgetBuilder.init().builder();
         budgetRepository.save(b1);
+
+        var customer = CustomerBuilder.init().builder();
+        customerRepository.save(customer);
+
         var c1 = ContractBuilder.init().withBudget(b1).builder();
         contractRepository.save(c1);
         var today = LocalDate.now();
@@ -138,5 +147,24 @@ class ContractControllerTest {
         //when
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(response.getContentAsString()).isEqualTo("1");
+    }
+
+    @Test
+    @DisplayName("Deve retornar 404 quando acessar um id de contrato inexistente a ser atualizado")
+    public void updateContract() throws Exception {
+        //given
+        var id = UUID.randomUUID();
+        var dataJson = mapper.writeValueAsString(UpdateContractBuilder.init().builder());
+
+        //when
+        var response = mockMvc.perform(
+                MockMvcRequestBuilders.put("/contracts/" + id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(dataJson)
+        ).andReturn().getResponse();
+
+        //then
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
+
     }
 }
