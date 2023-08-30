@@ -36,4 +36,9 @@ public class ContractBuilder {
         this.budget = budget;
         return this;
     }
+
+    public ContractBuilder withCustomerCpf(String customerCpf) {
+        this.customerCpf = customerCpf;
+        return this;
+    }
 }
